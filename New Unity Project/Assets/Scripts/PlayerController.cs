@@ -34,6 +34,7 @@ public class PlayerController : MonoBehaviour
         movement = Input.GetAxis("Horizontal");
         if (movement > 0f)
         {
+            playerAnimation.SetBool("IsMoving", true);
             rigidBody.velocity = new Vector2(movement * speed, rigidBody.velocity.y);
             if (isrotated)
             {
@@ -44,6 +45,7 @@ public class PlayerController : MonoBehaviour
         }
         else if(movement < 0f)
         {
+            playerAnimation.SetBool("IsMoving", true);
             rigidBody.velocity = new Vector2(movement * speed, rigidBody.velocity.y);
             if (!isrotated)
             {
@@ -52,8 +54,10 @@ public class PlayerController : MonoBehaviour
             }
                 
         }
+        
         else
         {
+            playerAnimation.SetBool("IsMoving", false);
             rigidBody.velocity = new Vector2(0, rigidBody.velocity.y);
         }
         if (Input.GetButtonDown("Jump") && isTouchingGround)
@@ -61,6 +65,7 @@ public class PlayerController : MonoBehaviour
             rigidBody.velocity = new Vector2(rigidBody.velocity.x, jumpSpeed);
             
         }
+   
         playerAnimation.SetBool("OnGround", isTouchingGround);
 
     }
