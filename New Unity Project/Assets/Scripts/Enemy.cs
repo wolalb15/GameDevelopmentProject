@@ -2,11 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CoinScript : MonoBehaviour
+public class Enemy : MonoBehaviour
 {
-    // Start is called before the first frame update
     private LevelManager gameLevelManager;
-    public int coinValue;
+    // Start is called before the first frame update
     void Start()
     {
         gameLevelManager = FindObjectOfType<LevelManager>();
@@ -15,17 +14,18 @@ public class CoinScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
+        
 
     }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.tag == "Player")
+        if (collision.tag == "Player")
         {
-            gameLevelManager.AddCoins(coinValue);
-            Destroy(gameObject);
-            
-        }
-        
-    }
+            Debug.Log("Enemy hit Player");
 
+        }
+
+    }
 }

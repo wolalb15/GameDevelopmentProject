@@ -18,6 +18,6 @@ public class Weopon : MonoBehaviour
 
     void Shoot()
     {
-        Instantiate(bullet, firepoint.position,firepoint.rotation);
+        Instantiate(bullet, firepoint.position , firepoint.rotation);
     }
 }

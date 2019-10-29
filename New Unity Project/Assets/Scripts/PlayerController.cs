@@ -57,6 +57,7 @@ public class PlayerController : MonoBehaviour
         
         else
         {
+            Debug.Log("Im else");
             playerAnimation.SetBool("IsMoving", false);
             rigidBody.velocity = new Vector2(0, rigidBody.velocity.y);
         }
@@ -78,9 +79,16 @@ public class PlayerController : MonoBehaviour
             gameLevelManager.Respawn();
             
         }
-        if(collision.tag == "Checkpoint")
+        else if(collision.tag == "Checkpoint")
         {
             respawnpoint = collision.transform.position;
+        }
+
+        else if(collision.tag == "Enemy")
+        {
+            Debug.Log("Enemy hit");
+            gameLevelManager.Respawn();
+
         }
     }
 }
