@@ -32,6 +32,7 @@ public class PlayerController : MonoBehaviour
     {
         isTouchingGround = Physics2D.OverlapCircle(groundCheckPoint.position, groundCheckRadius, groundLayer);
         movement = Input.GetAxis("Horizontal");
+        
         if (movement > 0f)
         {
             playerAnimation.SetBool("IsMoving", true);
@@ -54,19 +55,17 @@ public class PlayerController : MonoBehaviour
             }
                 
         }
-        
         else
         {
-            Debug.Log("Im else");
             playerAnimation.SetBool("IsMoving", false);
             rigidBody.velocity = new Vector2(0, rigidBody.velocity.y);
         }
+       
         if (Input.GetButtonDown("Jump") && isTouchingGround)
         {
             rigidBody.velocity = new Vector2(rigidBody.velocity.x, jumpSpeed);
             
         }
-   
         playerAnimation.SetBool("OnGround", isTouchingGround);
 
     }
