@@ -15,14 +15,16 @@ public class Bullet : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(!(collision.tag == "Player"))
+        if(!(collision.tag == "Player") && !(collision.tag == "Coin") && !(collision.tag == "Checkpoint") && !(collision.tag == "Bullet")
+            )
         {
             Destroy(gameObject);
         }
         if(collision.tag == "Enemy")
         {
-            Destroy(gameObject);
-            Destroy(collision.gameObject);
+
+
+           
         }
       
     }

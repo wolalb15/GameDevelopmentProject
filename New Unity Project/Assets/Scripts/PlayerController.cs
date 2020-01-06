@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -17,6 +16,9 @@ public class PlayerController : MonoBehaviour
     public Vector3 respawnpoint;
     public LevelManager gameLevelManager;
     bool isrotated = false;
+    public float damageDelay = 1;
+    bool facingRight = true;
+ 
     // Start is called before the first frame update
     void Start()
     {
@@ -50,8 +52,10 @@ public class PlayerController : MonoBehaviour
             rigidBody.velocity = new Vector2(movement * speed, rigidBody.velocity.y);
             if (!isrotated)
             {
+
                 transform.Rotate(0f, 180f, 0f);
                 isrotated = true;
+                
             }
                 
         }
@@ -86,8 +90,22 @@ public class PlayerController : MonoBehaviour
         else if(collision.tag == "Enemy")
         {
             Debug.Log("Enemy hit");
-            gameLevelManager.Respawn();
-
+            playerAnimation.SetBool("IsHurt", true);
+            gameLevelManager.TakeDamage(20);
+            StartCoroutine("Hurt");
+           
         }
+    }
+    IEnumerator Hurt()
+    {
+        rigidBody.velocity = Vector2.zero;
+
+        if (isrotated)
+            rigidBody.AddForce(new Vector2(-200f, 200f));
+        else
+            rigidBody.AddForce(new Vector2(200f, 200f));
+
+        yield return new WaitForSeconds(1);
+        playerAnimation.SetBool("IsHurt", false);
     }
 }

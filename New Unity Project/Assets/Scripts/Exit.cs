@@ -1,0 +1,21 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class Exit : MonoBehaviour
+{
+    public void QuitApp()
+    {
+        Debug.Log("Quit Game");
+
+    #if UNITY_EDITOR
+            UnityEditor.EditorApplication.isPlaying = false;
+    #else
+            Application.Quit();
+    #endif
+
+
+        
+
+    }
+}

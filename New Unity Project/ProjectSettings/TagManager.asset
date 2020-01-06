@@ -7,6 +7,8 @@ TagManager:
   - FallDetector
   - Checkpoint
   - Enemy
+  - Bullet
+  - Coin
   layers:
   - Default
   - TransparentFX

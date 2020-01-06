@@ -1,8 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿
 using UnityEngine;
 
-public class Weopon : MonoBehaviour
+public class Weapon : MonoBehaviour
 {
 
     public Transform firepoint;
