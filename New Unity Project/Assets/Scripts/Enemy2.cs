@@ -10,14 +10,15 @@ public class Enemy2 : MonoBehaviour
     public int hp = 30;
     public Bullet bullet;
     public Transform groundCheckPoint;
-    
+    public LevelManager gameLevelManager;
+
 
     private bool movingRight = true;
 
     // Start is called before the first frame update
     void Start()
     {
-
+        gameLevelManager = FindObjectOfType<LevelManager>();
     }
 
     // Update is called once per framess
@@ -57,6 +58,7 @@ public class Enemy2 : MonoBehaviour
             {
                 Destroy(gameObject);
                 Destroy(collision.gameObject);
+                gameLevelManager.AddScore(100);
             }
            
         }

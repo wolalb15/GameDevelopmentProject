@@ -19,7 +19,7 @@ public class LevelManager : MonoBehaviour
         healthSysteme = new HealthSysteme(100);
 
 
-        coinText.text = "Coins: " + coins;
+        coinText.text = "Score: " + coins;
     }
 
     // Update is called once per frame
@@ -45,10 +45,10 @@ public class LevelManager : MonoBehaviour
         healthbar.text = "Health: " + healthSysteme.gethealth();
     }
 
-    public void AddCoins(int numberOfCoins)
+    public void AddScore(int numberOfCoins)
     {
         coins += numberOfCoins;
-        coinText.text = "Coins: " + coins;
+        coinText.text = "Score: " + coins;
       
     }
 

@@ -15,16 +15,7 @@ public class HealthSysteme : MonoBehaviour
         this.health = health;
         this.maxHealth = 100;
     }
-    // Start is called before the first frame update
-    void Start()
-    {
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    
 
     public int gethealth()
     {

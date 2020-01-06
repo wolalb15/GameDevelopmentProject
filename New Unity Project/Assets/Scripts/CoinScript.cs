@@ -21,7 +21,7 @@ public class CoinScript : MonoBehaviour
     {
         if(collision.tag == "Player")
         {
-            gameLevelManager.AddCoins(coinValue);
+            gameLevelManager.AddScore(coinValue);
             Destroy(gameObject);
             
         }

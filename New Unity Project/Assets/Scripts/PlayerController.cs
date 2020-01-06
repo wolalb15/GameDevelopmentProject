@@ -17,7 +17,6 @@ public class PlayerController : MonoBehaviour
     public LevelManager gameLevelManager;
     bool isrotated = false;
     public float damageDelay = 1;
-    bool facingRight = true;
  
     // Start is called before the first frame update
     void Start()
@@ -107,5 +106,6 @@ public class PlayerController : MonoBehaviour
 
         yield return new WaitForSeconds(1);
         playerAnimation.SetBool("IsHurt", false);
+        
     }
 }
