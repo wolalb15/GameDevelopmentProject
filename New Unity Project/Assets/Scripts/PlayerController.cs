@@ -17,7 +17,9 @@ public class PlayerController : MonoBehaviour
     public LevelManager gameLevelManager;
     bool isrotated = false;
     public float damageDelay = 1;
- 
+    public Transform firepoint;
+    public GameObject bullet;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -25,7 +27,7 @@ public class PlayerController : MonoBehaviour
         playerAnimation = GetComponent<Animator>();
         respawnpoint = transform.position;
         gameLevelManager = FindObjectOfType<LevelManager>();
-        
+
     }
 
     // Update is called once per frame
@@ -33,7 +35,7 @@ public class PlayerController : MonoBehaviour
     {
         isTouchingGround = Physics2D.OverlapCircle(groundCheckPoint.position, groundCheckRadius, groundLayer);
         movement = Input.GetAxis("Horizontal");
-        
+
         if (movement > 0f)
         {
             playerAnimation.SetBool("IsMoving", true);
@@ -43,9 +45,9 @@ public class PlayerController : MonoBehaviour
                 transform.Rotate(0f, 180f, 0f);
                 isrotated = false;
             }
-            
+
         }
-        else if(movement < 0f)
+        else if (movement < 0f)
         {
             playerAnimation.SetBool("IsMoving", true);
             rigidBody.velocity = new Vector2(movement * speed, rigidBody.velocity.y);
@@ -54,45 +56,55 @@ public class PlayerController : MonoBehaviour
 
                 transform.Rotate(0f, 180f, 0f);
                 isrotated = true;
-                
+
             }
-                
+
         }
         else
         {
             playerAnimation.SetBool("IsMoving", false);
             rigidBody.velocity = new Vector2(0, rigidBody.velocity.y);
         }
-       
+
         if (Input.GetButtonDown("Jump") && isTouchingGround)
         {
             rigidBody.velocity = new Vector2(rigidBody.velocity.x, jumpSpeed);
-            
+
         }
         playerAnimation.SetBool("OnGround", isTouchingGround);
+
+        if (Input.GetButtonDown("Fire1"))
+        {
+
+            playerAnimation.SetBool("IsShooting", true);
+
+            StartCoroutine("Shoot");
+        }
+
 
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.tag == "FallDetector")
+        if (collision.tag == "FallDetector")
         {
             Debug.Log("Beim Fallen");
             gameLevelManager.Respawn();
-            
+
         }
-        else if(collision.tag == "Checkpoint")
+        else if (collision.tag == "Checkpoint")
         {
             respawnpoint = collision.transform.position;
         }
 
-        else if(collision.tag == "Enemy")
+        else if (collision.tag == "Enemy")
         {
             Debug.Log("Enemy hit");
             playerAnimation.SetBool("IsHurt", true);
             gameLevelManager.TakeDamage(20);
             StartCoroutine("Hurt");
-           
+
+
         }
     }
     IEnumerator Hurt()
@@ -106,6 +118,13 @@ public class PlayerController : MonoBehaviour
 
         yield return new WaitForSeconds(1);
         playerAnimation.SetBool("IsHurt", false);
-        
+
+    }
+    IEnumerator Shoot()
+    {
+
+        Instantiate(bullet, firepoint.position, firepoint.rotation);
+        yield return new WaitForSeconds(0.5f);
+        playerAnimation.SetBool("IsShooting", false);
     }
 }

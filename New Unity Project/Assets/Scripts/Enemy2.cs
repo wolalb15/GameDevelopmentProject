@@ -11,6 +11,7 @@ public class Enemy2 : MonoBehaviour
     public Bullet bullet;
     public Transform groundCheckPoint;
     public LevelManager gameLevelManager;
+    private Animator enemyAnimator;
 
 
     private bool movingRight = true;
@@ -19,6 +20,7 @@ public class Enemy2 : MonoBehaviour
     void Start()
     {
         gameLevelManager = FindObjectOfType<LevelManager>();
+        enemyAnimator = GetComponent<Animator>();
     }
 
     // Update is called once per framess
@@ -26,7 +28,7 @@ public class Enemy2 : MonoBehaviour
     {
         transform.Translate(Vector2.right * speed * Time.deltaTime);
         RaycastHit2D groundInfo = Physics2D.Raycast(groundCheckPoint.position, Vector2.down, distance);
-        if (groundInfo.collider.tag == "FallDetector")
+        if (groundInfo.collider.tag == "FallDetector" || groundInfo.collider.tag == "EnemyDetector")
         {
             if(movingRight == true)
             {
@@ -46,13 +48,16 @@ public class Enemy2 : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == "FallDetector")
+        if (collision.tag == "FallDetector" || collision.tag == "EnemyDetector")
         {
             
 
         }
         if(collision.tag == "Bullet")
         {
+
+            enemyAnimator.SetBool("IsHurt", true);
+            StartCoroutine("Hurt");
             hp -= 15;
             if(hp == 0)
             {
@@ -62,6 +67,14 @@ public class Enemy2 : MonoBehaviour
             }
            
         }
+
+    }
+
+    IEnumerator Hurt()
+    {
+
+        yield return new WaitForSeconds(1);
+        enemyAnimator.SetBool("IsHurt", false);
 
     }
 }
